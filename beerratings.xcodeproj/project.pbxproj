@@ -17,8 +17,6 @@
 		4357C71819A25BF1000BB74B /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4357C71619A25BF1000BB74B /* Main_iPhone.storyboard */; };
 		4357C71B19A25BF1000BB74B /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4357C71919A25BF1000BB74B /* Main_iPad.storyboard */; };
 		4357C71E19A25BF1000BB74B /* beerratings.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4357C71C19A25BF1000BB74B /* beerratings.xcdatamodeld */; };
-		4357C72119A25BF1000BB74B /* HITMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4357C72019A25BF1000BB74B /* HITMasterViewController.m */; };
-		4357C72419A25BF1000BB74B /* HITDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4357C72319A25BF1000BB74B /* HITDetailViewController.m */; };
 		4357C72619A25BF1000BB74B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4357C72519A25BF1000BB74B /* Images.xcassets */; };
 		4357C72D19A25BF1000BB74B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4357C72C19A25BF1000BB74B /* XCTest.framework */; };
 		4357C72E19A25BF1000BB74B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4357C70219A25BF1000BB74B /* Foundation.framework */; };
@@ -26,6 +24,10 @@
 		4357C73019A25BF1000BB74B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4357C70819A25BF1000BB74B /* CoreData.framework */; };
 		4357C73819A25BF1000BB74B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4357C73619A25BF1000BB74B /* InfoPlist.strings */; };
 		4357C73A19A25BF1000BB74B /* beerratingsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4357C73919A25BF1000BB74B /* beerratingsTests.m */; };
+		4357C74519A25DE0000BB74B /* HITMasterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4357C74419A25DE0000BB74B /* HITMasterTableViewController.m */; };
+		43C718E819AC85A500413439 /* HITMasterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C718E719AC85A500413439 /* HITMasterTableViewCell.m */; };
+		43C718F119AC943400413439 /* HITBeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C718F019AC943400413439 /* HITBeer.m */; };
+		43C718F919ACADBF00413439 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 43C718FB19ACADBF00413439 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,16 +55,24 @@
 		4357C71719A25BF1000BB74B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		4357C71A19A25BF1000BB74B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		4357C71D19A25BF1000BB74B /* beerratings.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = beerratings.xcdatamodel; sourceTree = "<group>"; };
-		4357C71F19A25BF1000BB74B /* HITMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HITMasterViewController.h; sourceTree = "<group>"; };
-		4357C72019A25BF1000BB74B /* HITMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HITMasterViewController.m; sourceTree = "<group>"; };
-		4357C72219A25BF1000BB74B /* HITDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HITDetailViewController.h; sourceTree = "<group>"; };
-		4357C72319A25BF1000BB74B /* HITDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HITDetailViewController.m; sourceTree = "<group>"; };
 		4357C72519A25BF1000BB74B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4357C72B19A25BF1000BB74B /* beerratingsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = beerratingsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4357C72C19A25BF1000BB74B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		4357C73519A25BF1000BB74B /* beerratingsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "beerratingsTests-Info.plist"; sourceTree = "<group>"; };
 		4357C73719A25BF1000BB74B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4357C73919A25BF1000BB74B /* beerratingsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = beerratingsTests.m; sourceTree = "<group>"; };
+		4357C74319A25DE0000BB74B /* HITMasterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HITMasterTableViewController.h; sourceTree = "<group>"; };
+		4357C74419A25DE0000BB74B /* HITMasterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HITMasterTableViewController.m; sourceTree = "<group>"; };
+		43C718E619AC85A500413439 /* HITMasterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HITMasterTableViewCell.h; sourceTree = "<group>"; };
+		43C718E719AC85A500413439 /* HITMasterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HITMasterTableViewCell.m; sourceTree = "<group>"; };
+		43C718EF19AC943400413439 /* HITBeer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HITBeer.h; sourceTree = "<group>"; };
+		43C718F019AC943400413439 /* HITBeer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HITBeer.m; sourceTree = "<group>"; };
+		43C718F519ACAD3500413439 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
+		43C718F619ACAD3500413439 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main_iPad.strings; sourceTree = "<group>"; };
+		43C718F719ACAD3500413439 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		43C718F819ACAD3500413439 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		43C718FA19ACADBF00413439 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		43C718FC19ACAE2600413439 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,17 +135,17 @@
 		4357C70A19A25BF1000BB74B /* beerratings */ = {
 			isa = PBXGroup;
 			children = (
+				43C718F219ACABB600413439 /* Localization */,
+				43C718EE19AC940D00413439 /* Model */,
 				4357C71319A25BF1000BB74B /* HITAppDelegate.h */,
 				4357C71419A25BF1000BB74B /* HITAppDelegate.m */,
 				4357C71619A25BF1000BB74B /* Main_iPhone.storyboard */,
 				4357C71919A25BF1000BB74B /* Main_iPad.storyboard */,
-				4357C71F19A25BF1000BB74B /* HITMasterViewController.h */,
-				4357C72019A25BF1000BB74B /* HITMasterViewController.m */,
-				4357C72219A25BF1000BB74B /* HITDetailViewController.h */,
-				4357C72319A25BF1000BB74B /* HITDetailViewController.m */,
 				4357C72519A25BF1000BB74B /* Images.xcassets */,
 				4357C71C19A25BF1000BB74B /* beerratings.xcdatamodeld */,
 				4357C70B19A25BF1000BB74B /* Supporting Files */,
+				438F9ECF19ACBAD9005ECD26 /* DetailView */,
+				43C718E919AC85AB00413439 /* MasterView */,
 			);
 			path = beerratings;
 			sourceTree = "<group>";
@@ -167,6 +177,49 @@
 				4357C73619A25BF1000BB74B /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		438F9ECF19ACBAD9005ECD26 /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = DetailView;
+			sourceTree = "<group>";
+		};
+		43C718E919AC85AB00413439 /* MasterView */ = {
+			isa = PBXGroup;
+			children = (
+				43C718EA19AC85B300413439 /* Cell */,
+				4357C74319A25DE0000BB74B /* HITMasterTableViewController.h */,
+				4357C74419A25DE0000BB74B /* HITMasterTableViewController.m */,
+			);
+			name = MasterView;
+			sourceTree = "<group>";
+		};
+		43C718EA19AC85B300413439 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				43C718E619AC85A500413439 /* HITMasterTableViewCell.h */,
+				43C718E719AC85A500413439 /* HITMasterTableViewCell.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		43C718EE19AC940D00413439 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				43C718EF19AC943400413439 /* HITBeer.h */,
+				43C718F019AC943400413439 /* HITBeer.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		43C718F219ACABB600413439 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				43C718FB19ACADBF00413439 /* Localizable.strings */,
+			);
+			name = Localization;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,6 +270,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Dirk Hildebrand";
 				TargetAttributes = {
+					4357C6FE19A25BF1000BB74B = {
+						DevelopmentTeam = YB7649S3F6;
+					};
 					4357C72A19A25BF1000BB74B = {
 						TestTargetID = 4357C6FE19A25BF1000BB74B;
 					};
@@ -229,6 +285,7 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = 4357C6F619A25BF1000BB74B;
 			productRefGroup = 4357C70019A25BF1000BB74B /* Products */;
@@ -246,6 +303,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43C718F919ACADBF00413439 /* Localizable.strings in Resources */,
 				4357C71B19A25BF1000BB74B /* Main_iPad.storyboard in Resources */,
 				4357C72619A25BF1000BB74B /* Images.xcassets in Resources */,
 				4357C71819A25BF1000BB74B /* Main_iPhone.storyboard in Resources */,
@@ -268,9 +326,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4357C72119A25BF1000BB74B /* HITMasterViewController.m in Sources */,
+				43C718E819AC85A500413439 /* HITMasterTableViewCell.m in Sources */,
 				4357C71E19A25BF1000BB74B /* beerratings.xcdatamodeld in Sources */,
-				4357C72419A25BF1000BB74B /* HITDetailViewController.m in Sources */,
+				4357C74519A25DE0000BB74B /* HITMasterTableViewController.m in Sources */,
+				43C718F119AC943400413439 /* HITBeer.m in Sources */,
 				4357C71519A25BF1000BB74B /* HITAppDelegate.m in Sources */,
 				4357C71119A25BF1000BB74B /* main.m in Sources */,
 			);
@@ -299,6 +358,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4357C70E19A25BF1000BB74B /* en */,
+				43C718F719ACAD3500413439 /* de */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -307,6 +367,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4357C71719A25BF1000BB74B /* Base */,
+				43C718F519ACAD3500413439 /* de */,
 			);
 			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";
@@ -315,6 +376,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4357C71A19A25BF1000BB74B /* Base */,
+				43C718F619ACAD3500413439 /* de */,
 			);
 			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
@@ -323,8 +385,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				4357C73719A25BF1000BB74B /* en */,
+				43C718F819ACAD3500413439 /* de */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		43C718FB19ACADBF00413439 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				43C718FA19ACADBF00413439 /* en */,
+				43C718FC19ACAE2600413439 /* de */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -407,6 +479,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "beerratings/beerratings-Prefix.pch";
 				INFOPLIST_FILE = "beerratings/beerratings-Info.plist";
@@ -420,6 +493,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "beerratings/beerratings-Prefix.pch";
 				INFOPLIST_FILE = "beerratings/beerratings-Info.plist";
@@ -487,6 +561,7 @@
 				4357C73F19A25BF1000BB74B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4357C74019A25BF1000BB74B /* Build configuration list for PBXNativeTarget "beerratingsTests" */ = {
 			isa = XCConfigurationList;
@@ -495,6 +570,7 @@
 				4357C74219A25BF1000BB74B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

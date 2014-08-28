@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  beerratings
+
+  Created by Dirk Hildebrand on 26.08.14.
+  Copyright (c) 2014 Dirk Hildebrand. All rights reserved.
+*/
+"Beer Ratings" = "Bierbewertung";
+"New Beer" = "Neues Bier";
+"Done" = "Fertig";

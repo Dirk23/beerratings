@@ -1,9 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Event">
-        <attribute name="timeStamp" optional="YES" attributeType="Date"/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13E28" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Beer">
+        <attribute name="abv" optional="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
+        <attribute name="body" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="brewery" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date">
+            <userInfo/>
+        </attribute>
+        <attribute name="ibu" optional="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 64" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="look" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rating" optional="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
+        <attribute name="smell" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="style" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="taste" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <userInfo/>
+    </entity>
+    <entity name="Style" syncable="YES">
+        <attribute name="mainStyle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Event" positionX="261" positionY="189" width="128" height="60"/>
+        <element name="Beer" positionX="261" positionY="189" width="128" height="238"/>
+        <element name="Style" positionX="-407" positionY="189" width="128" height="73"/>
     </elements>
 </model>

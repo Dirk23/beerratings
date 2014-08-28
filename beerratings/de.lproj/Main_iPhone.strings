@@ -1,0 +1,15 @@
+
+/* Class = "IBUILabel"; text = "Date"; ObjectID = "RDd-NQ-FzG"; */
+"RDd-NQ-FzG.text" = "Datum";
+
+/* Class = "IBUILabel"; text = "Brewery Name"; ObjectID = "kfh-38-2Md"; */
+"kfh-38-2Md.text" = "Brauerei Name";
+
+/* Class = "IBUILabel"; text = "Beername"; ObjectID = "mPW-lZ-JQW"; */
+"mPW-lZ-JQW.text" = "Biername";
+
+/* Class = "IBUITableViewController"; title = "Master"; ObjectID = "pGg-6v-bdr"; */
+"pGg-6v-bdr.title" = "Master";
+
+/* Class = "IBUINavigationItem"; title = "Master"; ObjectID = "tQt-TN-PWz"; */
+"tQt-TN-PWz.title" = "Master";

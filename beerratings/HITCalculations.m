@@ -50,8 +50,10 @@
 -(UIColor*) inverseColorWithUICollor:(UIColor*)color  {
     CGFloat red; CGFloat green; CGFloat blue; CGFloat alpha;
     [color getRed:&red green:&green blue:&blue alpha:&alpha];
-    return [UIColor colorWithRed:1.-red green:1.-green blue:1.-blue alpha:alpha];
+    UIColor* retrn = [UIColor colorWithRed:1.-red green:1.-green blue:1.-blue alpha:alpha];
+    return retrn;
 }
+
 
 #pragma mark - smttoRGB
 long srmtoRGB[300][3] = {

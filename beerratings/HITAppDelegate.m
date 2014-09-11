@@ -21,7 +21,6 @@
     NSManagedObjectContext* context = [self managedObjectContext];
     NSError* error;
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"]) {
-
         //writing StyleCategories into the Database
         NSMutableDictionary* StyleCategorieDict = [[NSMutableDictionary alloc] init];
         [StyleCategorieDict setObject:@"Light Lager" forKey:@"0"];

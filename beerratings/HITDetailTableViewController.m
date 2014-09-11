@@ -12,11 +12,16 @@
 #import "HITSliderTableViewCell.h"
 #import "HITPickerTableViewCell.h"
 #import "HITSliderColorTableViewCell.h"
+#import "HITStyleTableViewCell.h"
 #import "HITAppDelegate.h"
 #import "HITCalculations.h"
+#import "igViewController.h"
 
 @interface HITDetailTableViewController () <UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
-
+@property (assign) BOOL showDatePicker;
+@property (strong) NSString* styleCategorie;
+@property (strong) NSString* styleDetail;
+@property (assign) long cellHeigth;
 @end
 
 @implementation HITDetailTableViewController
@@ -31,6 +36,10 @@
 @synthesize sliderEBC;
 @synthesize color;
 @synthesize selectedCategorie;
+@synthesize showDatePicker;
+@synthesize styleCategorie;
+@synthesize styleDetail;
+@synthesize cellHeigth;
 HITAppDelegate *appDelegateDetail;
 NSManagedObjectContext *contextDetail;
 
@@ -47,6 +56,12 @@ NSManagedObjectContext *contextDetail;
     sliderTaste = [[[beerDetailArr objectAtIndex:0] valueForKey:@"taste"]doubleValue];
     sliderBody = [[[beerDetailArr objectAtIndex:0] valueForKey:@"body"]doubleValue];
     sliderEBC = [[[beerDetailArr objectAtIndex:0] valueForKey:@"ebc"]doubleValue];
+    showDatePicker = YES;
+    cellHeigth = 0;
+    long categorie = [[[beerDetailArr objectAtIndex:0] valueForKey:@"styleCategorieIndex"]longValue];
+    long style = [[[beerDetailArr objectAtIndex:0] valueForKey:@"rowStyleIndex"]longValue];
+    styleCategorie = [[styleCategoriesArr objectAtIndex:categorie] valueForKey:@"name"];
+    styleDetail = [[stylesArr objectAtIndex:style] valueForKey:@"name"];
 }
 -(void)loadStyleCategories{
     NSFetchRequest* fetchRequest = [[NSFetchRequest alloc]init];
@@ -97,7 +112,7 @@ NSManagedObjectContext *contextDetail;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 11;
+    return 12;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -122,27 +137,43 @@ NSManagedObjectContext *contextDetail;
             return NSLocalizedString(@"Style", nil);
             break;
         case 5:
-            return NSLocalizedString(@"Look", nil);
+            return nil;
             break;
         case 6:
-            return NSLocalizedString(@"Smell", nil);
+            return NSLocalizedString(@"Look", nil);
             break;
         case 7:
-            return NSLocalizedString(@"Taste", nil);
+            return NSLocalizedString(@"Smell", nil);
             break;
         case 8:
-            return NSLocalizedString(@"Body", nil);
+            return NSLocalizedString(@"Taste", nil);
             break;
         case 9:
-            return NSLocalizedString(@"Color", nil);
+            return NSLocalizedString(@"Body", nil);
             break;
         case 10:
+            return NSLocalizedString(@"Color", nil);
+            break;
+        case 11:
             return NSLocalizedString(@"Notes", nil);
             break;
         default:
             return @"";
             break;
     }
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 4 && indexPath.row == 0) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        if (showDatePicker) {
+            showDatePicker = NO;
+            cellHeigth = 132;
+        } else {
+            showDatePicker = YES;
+            cellHeigth = 0;
+        }
+    }
+    [self.tableView reloadData];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -151,6 +182,7 @@ NSManagedObjectContext *contextDetail;
     static NSString* slider = @"cellSlider";
     static NSString* sliderColor = @"cellSliderColor";
     static NSString* textView = @"cellTextView";
+    static NSString* style = @"cellStyle";
     if (indexPath.section == 0) {
         //Beername
         HITTextfieldTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:textfield forIndexPath:indexPath];
@@ -191,20 +223,31 @@ NSManagedObjectContext *contextDetail;
         return cell;
     }
     if (indexPath.section == 4) {
-        //Style
-        
-        
-        
-        
-        HITPickerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:picker forIndexPath:indexPath];
-        cell.picker.delegate = self;
-        cell.picker.dataSource = self;
-        [cell.picker setTag:indexPath.section];
-        [cell.picker selectRow:[[[beerDetailArr objectAtIndex:0] valueForKey:@"styleCategorieIndex"]longValue] inComponent:0 animated:YES];
-        [cell.picker selectRow:[[[beerDetailArr objectAtIndex:0] valueForKey:@"rowStyleIndex"]longValue] inComponent:1 animated:YES];
+        HITStyleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:style forIndexPath:indexPath];
+        cell.styleCategorie.text = styleCategorie;
+        cell.styleDetail.text = styleDetail;
         return cell;
     }
     if (indexPath.section == 5) {
+        //Style
+        HITPickerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:picker forIndexPath:indexPath];
+        if (showDatePicker) {
+            cell.hidden = YES;
+        } else {
+            cell.hidden = NO;
+        }
+        cell.picker.delegate = self;
+        cell.picker.dataSource = self;
+        [cell.picker setTag:indexPath.section];
+        long categorie = [[[beerDetailArr objectAtIndex:0] valueForKey:@"styleCategorieIndex"]longValue];
+        long style = [[[beerDetailArr objectAtIndex:0] valueForKey:@"rowStyleIndex"]longValue];
+        [cell.picker selectRow:categorie inComponent:0 animated:YES];
+        [cell.picker selectRow:style inComponent:1 animated:YES];
+//        styleCategorie = [[styleCategoriesArr objectAtIndex:categorie] valueForKey:@"name"];
+//        styleDetail = [[stylesArr objectAtIndex:style] valueForKey:@"name"];
+        return cell;
+    }
+    if (indexPath.section == 6) {
         //Look
         HITSliderTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:slider forIndexPath:indexPath];
         cell.slider.minimumValue = 0;
@@ -216,7 +259,7 @@ NSManagedObjectContext *contextDetail;
         cell.slider.value = sliderLook;
         return cell;
     }
-    if (indexPath.section == 6) {
+    if (indexPath.section == 7) {
         //Smell
         HITSliderTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:slider forIndexPath:indexPath];
         cell.slider.minimumValue = 0;
@@ -229,7 +272,7 @@ NSManagedObjectContext *contextDetail;
 
         return cell;
     }
-    if (indexPath.section == 7) {
+    if (indexPath.section == 8) {
         //Taste
         HITSliderTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:slider forIndexPath:indexPath];
         cell.slider.minimumValue = 0;
@@ -241,7 +284,7 @@ NSManagedObjectContext *contextDetail;
         [cell.slider addTarget:self action:@selector(tasteChanged:) forControlEvents:UIControlEventValueChanged];
         return cell;
     }
-    if (indexPath.section == 8) {
+    if (indexPath.section == 9) {
         //Body
         HITSliderTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:slider forIndexPath:indexPath];
         cell.slider.minimumValue = 0;
@@ -253,7 +296,7 @@ NSManagedObjectContext *contextDetail;
         [cell.slider addTarget:self action:@selector(bodyChanged:) forControlEvents:UIControlEventValueChanged];
         return cell;
     }
-    if (indexPath.section == 9) {
+    if (indexPath.section == 10) {
         //Color
         HITSliderColorTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:sliderColor forIndexPath:indexPath];
         HITCalculations* calc = [[HITCalculations alloc]init];
@@ -273,7 +316,7 @@ NSManagedObjectContext *contextDetail;
         [cell.sliderTextfield addTarget:self action:@selector(ebcTextfield:) forControlEvents:UIControlEventEditingDidEnd];
         return cell;
     }
-    if (indexPath.section == 10) {
+    if (indexPath.section == 11) {
         //Look
         HITTextViewTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:textView forIndexPath:indexPath];
         cell.textView.delegate = self;
@@ -294,10 +337,10 @@ NSManagedObjectContext *contextDetail;
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         case 4:
-            return 132;
+            return 55;
             break;
         case 5:
-            return 66;
+            return cellHeigth;
             break;
         case 6:
             return 66;
@@ -309,9 +352,12 @@ NSManagedObjectContext *contextDetail;
             return 66;
             break;
         case 9:
-            return 88;
+            return 66;
             break;
         case 10:
+            return 88;
+            break;
+        case 11:
             return 132;
             break;
         default:
@@ -363,6 +409,34 @@ NSManagedObjectContext *contextDetail;
     // Pass the selected object to the new view controller.
 }
 */
+#pragma mark - Show/Hide Picker
+//- (void)showDatePickerCell {
+//    self.datePickerIsShowing = YES;
+//    [self.tableView beginUpdates];
+//    [self.tableView endUpdates];
+//    
+//    self.datePicker.hidden = NO;
+//    self.datePicker.alpha = 0.0f;
+//    
+//    [UIView animateWithDuration:0.25 animations:^{
+//        self.datePicker.alpha = 1.0f;
+//    }];
+//}
+//
+//- (void)hideDatePickerCell {
+//    self.datePickerIsShowing = NO;
+//    [self.tableView beginUpdates];
+//    [self.tableView endUpdates];
+//    
+//    [UIView animateWithDuration:0.25
+//                     animations:^{
+//                         self.datePicker.alpha = 0.0f;
+//                     }
+//                     completion:^(BOOL finished){
+//                         self.datePicker.hidden = YES;
+//                     }];
+//}
+
 #pragma mark - Picker
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
     UILabel* tView = (UILabel*)view;
@@ -388,12 +462,15 @@ NSManagedObjectContext *contextDetail;
     if (component == 1) {
         [pickerView reloadAllComponents];
     }
+    styleCategorie = [[styleCategoriesArr objectAtIndex:[pickerView selectedRowInComponent:0]] valueForKey:@"name"];
+    styleDetail = [[stylesArr objectAtIndex:[pickerView selectedRowInComponent:1]] valueForKey:@"name"];
     value = [[[styleCategoriesArr objectAtIndex:[pickerView selectedRowInComponent:0]] valueForKey:@"index"]longValue];
     [self saveChangesWithValue:[NSNumber numberWithLong:value] Key:@"styleCategorieIndex"];
     value = [[[stylesArr objectAtIndex:[pickerView selectedRowInComponent:1]] valueForKey:@"index"]longValue];
     [self saveChangesWithValue:[NSNumber numberWithLong:value] Key:@"styleIndex"];
     value = [pickerView selectedRowInComponent:1];
     [self saveChangesWithValue:[NSNumber numberWithLong:value] Key:@"rowStyleIndex"];
+    [self.tableView reloadData];
 }
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     if (component == 0) {
@@ -518,7 +595,7 @@ NSManagedObjectContext *contextDetail;
     [self.navigationItem setRightBarButtonItem:rightButton];
 }
 -(void)textViewKeyboardDown:(id)sender {
-    UITextView* tView = (UITextView*)[self.view viewWithTag:10];
+    UITextView* tView = (UITextView*)[self.view viewWithTag:11];
     [tView endEditing:YES];
     [self.navigationItem setRightBarButtonItem:nil];
 }
@@ -540,4 +617,12 @@ NSManagedObjectContext *contextDetail;
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
     }
 }
+#pragma mark - Barcode
+-(void)cameraDidFinish:(igViewController *)inController data:(NSString*)code {
+    [self dismissViewControllerAnimated:YES completion:^{
+    
+    }];
+}
+
+
 @end

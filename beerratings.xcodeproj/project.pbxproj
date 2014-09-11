@@ -25,6 +25,14 @@
 		4357C73819A25BF1000BB74B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4357C73619A25BF1000BB74B /* InfoPlist.strings */; };
 		4357C73A19A25BF1000BB74B /* beerratingsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4357C73919A25BF1000BB74B /* beerratingsTests.m */; };
 		4357C74519A25DE0000BB74B /* HITMasterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4357C74419A25DE0000BB74B /* HITMasterTableViewController.m */; };
+		43915DAF19C03F59008D4092 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43915DAE19C03F59008D4092 /* Crashlytics.framework */; };
+		43A7E4ED19BF51DC0074B92E /* HITCalculations.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A7E4EC19BF51DC0074B92E /* HITCalculations.m */; };
+		43A7E4F019BF56D40074B92E /* HITSliderColorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A7E4EF19BF56D40074B92E /* HITSliderColorTableViewCell.m */; };
+		43AFB96319BDC8FD00F89C95 /* HITDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AFB96219BDC8FD00F89C95 /* HITDetailTableViewController.m */; };
+		43AFB96719BDC95000F89C95 /* HITTextfieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AFB96619BDC95000F89C95 /* HITTextfieldTableViewCell.m */; };
+		43AFB96A19BDC9A600F89C95 /* HITPickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AFB96919BDC9A600F89C95 /* HITPickerTableViewCell.m */; };
+		43AFB96D19BDC9DD00F89C95 /* HITSliderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AFB96C19BDC9DD00F89C95 /* HITSliderTableViewCell.m */; };
+		43AFB97019BDC9F600F89C95 /* HITTextViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43AFB96F19BDC9F600F89C95 /* HITTextViewTableViewCell.m */; };
 		43C718E819AC85A500413439 /* HITMasterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C718E719AC85A500413439 /* HITMasterTableViewCell.m */; };
 		43C718F119AC943400413439 /* HITBeer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C718F019AC943400413439 /* HITBeer.m */; };
 		43C718F919ACADBF00413439 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 43C718FB19ACADBF00413439 /* Localizable.strings */; };
@@ -63,6 +71,21 @@
 		4357C73919A25BF1000BB74B /* beerratingsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = beerratingsTests.m; sourceTree = "<group>"; };
 		4357C74319A25DE0000BB74B /* HITMasterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HITMasterTableViewController.h; sourceTree = "<group>"; };
 		4357C74419A25DE0000BB74B /* HITMasterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HITMasterTableViewController.m; sourceTree = "<group>"; };
+		43915DAE19C03F59008D4092 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		43A7E4EB19BF51DC0074B92E /* HITCalculations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HITCalculations.h; sourceTree = "<group>"; };
+		43A7E4EC19BF51DC0074B92E /* HITCalculations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HITCalculations.m; sourceTree = "<group>"; };
+		43A7E4EE19BF56D40074B92E /* HITSliderColorTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HITSliderColorTableViewCell.h; sourceTree = "<group>"; };
+		43A7E4EF19BF56D40074B92E /* HITSliderColorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HITSliderColorTableViewCell.m; sourceTree = "<group>"; };
+		43AFB96119BDC8FD00F89C95 /* HITDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HITDetailTableViewController.h; sourceTree = "<group>"; };
+		43AFB96219BDC8FD00F89C95 /* HITDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HITDetailTableViewController.m; sourceTree = "<group>"; };
+		43AFB96519BDC95000F89C95 /* HITTextfieldTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HITTextfieldTableViewCell.h; sourceTree = "<group>"; };
+		43AFB96619BDC95000F89C95 /* HITTextfieldTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HITTextfieldTableViewCell.m; sourceTree = "<group>"; };
+		43AFB96819BDC9A600F89C95 /* HITPickerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HITPickerTableViewCell.h; sourceTree = "<group>"; };
+		43AFB96919BDC9A600F89C95 /* HITPickerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HITPickerTableViewCell.m; sourceTree = "<group>"; };
+		43AFB96B19BDC9DD00F89C95 /* HITSliderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HITSliderTableViewCell.h; sourceTree = "<group>"; };
+		43AFB96C19BDC9DD00F89C95 /* HITSliderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HITSliderTableViewCell.m; sourceTree = "<group>"; };
+		43AFB96E19BDC9F600F89C95 /* HITTextViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HITTextViewTableViewCell.h; sourceTree = "<group>"; };
+		43AFB96F19BDC9F600F89C95 /* HITTextViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HITTextViewTableViewCell.m; sourceTree = "<group>"; };
 		43C718E619AC85A500413439 /* HITMasterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HITMasterTableViewCell.h; sourceTree = "<group>"; };
 		43C718E719AC85A500413439 /* HITMasterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HITMasterTableViewCell.m; sourceTree = "<group>"; };
 		43C718EF19AC943400413439 /* HITBeer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HITBeer.h; sourceTree = "<group>"; };
@@ -81,6 +104,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4357C70519A25BF1000BB74B /* CoreGraphics.framework in Frameworks */,
+				43915DAF19C03F59008D4092 /* Crashlytics.framework in Frameworks */,
 				4357C70919A25BF1000BB74B /* CoreData.framework in Frameworks */,
 				4357C70719A25BF1000BB74B /* UIKit.framework in Frameworks */,
 				4357C70319A25BF1000BB74B /* Foundation.framework in Frameworks */,
@@ -123,6 +147,7 @@
 		4357C70119A25BF1000BB74B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				43915DAE19C03F59008D4092 /* Crashlytics.framework */,
 				4357C70219A25BF1000BB74B /* Foundation.framework */,
 				4357C70419A25BF1000BB74B /* CoreGraphics.framework */,
 				4357C70619A25BF1000BB74B /* UIKit.framework */,
@@ -182,8 +207,28 @@
 		438F9ECF19ACBAD9005ECD26 /* DetailView */ = {
 			isa = PBXGroup;
 			children = (
+				43AFB96419BDC92A00F89C95 /* Cell */,
+				43AFB96119BDC8FD00F89C95 /* HITDetailTableViewController.h */,
+				43AFB96219BDC8FD00F89C95 /* HITDetailTableViewController.m */,
 			);
 			name = DetailView;
+			sourceTree = "<group>";
+		};
+		43AFB96419BDC92A00F89C95 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				43AFB96519BDC95000F89C95 /* HITTextfieldTableViewCell.h */,
+				43AFB96619BDC95000F89C95 /* HITTextfieldTableViewCell.m */,
+				43AFB96819BDC9A600F89C95 /* HITPickerTableViewCell.h */,
+				43AFB96919BDC9A600F89C95 /* HITPickerTableViewCell.m */,
+				43AFB96B19BDC9DD00F89C95 /* HITSliderTableViewCell.h */,
+				43AFB96C19BDC9DD00F89C95 /* HITSliderTableViewCell.m */,
+				43AFB96E19BDC9F600F89C95 /* HITTextViewTableViewCell.h */,
+				43AFB96F19BDC9F600F89C95 /* HITTextViewTableViewCell.m */,
+				43A7E4EE19BF56D40074B92E /* HITSliderColorTableViewCell.h */,
+				43A7E4EF19BF56D40074B92E /* HITSliderColorTableViewCell.m */,
+			);
+			name = Cell;
 			sourceTree = "<group>";
 		};
 		43C718E919AC85AB00413439 /* MasterView */ = {
@@ -210,6 +255,8 @@
 			children = (
 				43C718EF19AC943400413439 /* HITBeer.h */,
 				43C718F019AC943400413439 /* HITBeer.m */,
+				43A7E4EB19BF51DC0074B92E /* HITCalculations.h */,
+				43A7E4EC19BF51DC0074B92E /* HITCalculations.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -231,7 +278,9 @@
 			buildPhases = (
 				4357C6FB19A25BF1000BB74B /* Sources */,
 				4357C6FC19A25BF1000BB74B /* Frameworks */,
+				43C8A0FF19C0785D00331AF4 /* Bump Build Number */,
 				4357C6FD19A25BF1000BB74B /* Resources */,
+				43915DAD19C03F27008D4092 /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -321,6 +370,37 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		43915DAD19C03F27008D4092 /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Crashlytics;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run 350f5b65ba22ff0376be9ab655dcefc7f64ed8ca aa0a12ece98c16debcab8e0dc89e43ade77e996f16d413783d7d3fbeee9745b0";
+		};
+		43C8A0FF19C0785D00331AF4 /* Bump Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bump Build Number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4357C6FB19A25BF1000BB74B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -328,10 +408,17 @@
 			files = (
 				43C718E819AC85A500413439 /* HITMasterTableViewCell.m in Sources */,
 				4357C71E19A25BF1000BB74B /* beerratings.xcdatamodeld in Sources */,
+				43A7E4F019BF56D40074B92E /* HITSliderColorTableViewCell.m in Sources */,
+				43AFB96D19BDC9DD00F89C95 /* HITSliderTableViewCell.m in Sources */,
+				43AFB96A19BDC9A600F89C95 /* HITPickerTableViewCell.m in Sources */,
 				4357C74519A25DE0000BB74B /* HITMasterTableViewController.m in Sources */,
+				43AFB97019BDC9F600F89C95 /* HITTextViewTableViewCell.m in Sources */,
 				43C718F119AC943400413439 /* HITBeer.m in Sources */,
+				43A7E4ED19BF51DC0074B92E /* HITCalculations.m in Sources */,
 				4357C71519A25BF1000BB74B /* HITAppDelegate.m in Sources */,
+				43AFB96319BDC8FD00F89C95 /* HITDetailTableViewController.m in Sources */,
 				4357C71119A25BF1000BB74B /* main.m in Sources */,
+				43AFB96719BDC95000F89C95 /* HITTextfieldTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +505,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -480,10 +568,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "beerratings/beerratings-Prefix.pch";
 				INFOPLIST_FILE = "beerratings/beerratings-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "fbe4e34d-1307-4501-82da-3b9cf19a00b0";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -494,10 +589,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "beerratings/beerratings-Prefix.pch";
 				INFOPLIST_FILE = "beerratings/beerratings-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "fbe4e34d-1307-4501-82da-3b9cf19a00b0";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

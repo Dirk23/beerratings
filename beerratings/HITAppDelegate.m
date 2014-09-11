@@ -7,7 +7,7 @@
 //
 
 #import "HITAppDelegate.h"
-
+#import <Crashlytics/Crashlytics.h>
 
 @implementation HITAppDelegate
 
@@ -17,13 +17,48 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [Crashlytics startWithAPIKey:@"350f5b65ba22ff0376be9ab655dcefc7f64ed8ca"];
     NSManagedObjectContext* context = [self managedObjectContext];
     NSError* error;
-
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"]) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedOnce"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
 
+        //writing StyleCategories into the Database
+        NSMutableDictionary* StyleCategorieDict = [[NSMutableDictionary alloc] init];
+        [StyleCategorieDict setObject:@"Light Lager" forKey:@"0"];
+        [StyleCategorieDict setObject:@"Pilsner" forKey:@"1"];
+        [StyleCategorieDict setObject:@"European Amber Lager" forKey:@"2"];
+        [StyleCategorieDict setObject:@"Dark Lager" forKey:@"3"];
+        [StyleCategorieDict setObject:@"Bock" forKey:@"4"];
+        [StyleCategorieDict setObject:@"Light Hybrid Beer" forKey:@"5"];
+        [StyleCategorieDict setObject:@"Amber Hybrid Beer" forKey:@"6"];
+        [StyleCategorieDict setObject:@"English Pale Ale" forKey:@"7"];
+        [StyleCategorieDict setObject:@"Scottish and Irish Ale" forKey:@"8"];
+        [StyleCategorieDict setObject:@"American Ale" forKey:@"9"];
+        [StyleCategorieDict setObject:@"English Brown Ale" forKey:@"10"];
+        [StyleCategorieDict setObject:@"Porter" forKey:@"11"];
+        [StyleCategorieDict setObject:@"Stout" forKey:@"12"];
+        [StyleCategorieDict setObject:@"India Pale Ale (IPA)" forKey:@"13"];
+        [StyleCategorieDict setObject:@"German Wheat and Rye Beer" forKey:@"14"];
+        [StyleCategorieDict setObject:@"Belgian and French Ale" forKey:@"15"];
+        [StyleCategorieDict setObject:@"Sour Ale" forKey:@"16"];
+        [StyleCategorieDict setObject:@"Belgian Strong Ale" forKey:@"17"];
+        [StyleCategorieDict setObject:@"Strong Ale" forKey:@"18"];
+        [StyleCategorieDict setObject:@"Fruit Beer" forKey:@"19"];
+        [StyleCategorieDict setObject:@"Spice/Herb/Vegetable Beer" forKey:@"20"];
+        [StyleCategorieDict setObject:@"Smoke-Flavored/Wood-Aged Beer" forKey:@"21"];
+        [StyleCategorieDict setObject:@"Specialty Beer" forKey:@"22"];
+        [StyleCategorieDict setObject:@"Traditional Mead" forKey:@"23"];
+        [StyleCategorieDict setObject:@"Melomel (Fruit Mead)" forKey:@"24"];
+        [StyleCategorieDict setObject:@"Other Mead" forKey:@"25"];
+        [StyleCategorieDict setObject:@"Standard Cider and Perry" forKey:@"26"];
+        [StyleCategorieDict setObject:@"Specialty Cider and Perry" forKey:@"27"];
+        
+        for (long x = 0; x < [StyleCategorieDict count]; x++) {
+            NSManagedObject* StyleCategorie = [NSEntityDescription insertNewObjectForEntityForName:@"StyleCategories" inManagedObjectContext:context];
+            [StyleCategorie setValue:[StyleCategorieDict valueForKey:[NSString stringWithFormat:@"%li",x]] forKey:@"name"];
+            [StyleCategorie setValue:[NSNumber numberWithLong:x] forKey:@"index"];
+        }
+        //wrting the Styles into the Database
         NSMutableArray *stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"Lite American Lager (1A)"];
         [stylesArr addObject:@"Standard American Lager (1B)"];
@@ -31,14 +66,17 @@
         [stylesArr addObject:@"Munich Helles (1D)"];
         [stylesArr addObject:@"Dortmunder Export (1E)"];
         int cntr = 0;
+        int index = 0;
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"Light Lager" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:0] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"German Pilsner (2A)"];
@@ -48,11 +86,13 @@
          for (NSString* object in stylesArr) {
              NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
              [style setValue:object forKey:@"name"];
-             [style setValue:@"Pilsner" forKey:@"mainStyle"];
+             [style setValue:[NSNumber numberWithLong:1] forKey:@"categorie"];
+             [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
              if (![context save:&error]) {
                  NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
              }
              cntr++;
+             index++;
          }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"Vienna Lager (3A)"];
@@ -61,11 +101,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"European Amber Lager" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:2] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"Oktoberfest (4A)"];
@@ -75,11 +117,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"Dark Lager" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:3] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"Maibock/Heller Bock (5A)"];
@@ -90,11 +134,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"Bock" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:4] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"Cream Ale (6A)"];
@@ -105,11 +151,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"Light Hybrid Beer" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:5] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"Northern German Altbier (7A)"];
@@ -119,11 +167,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"Amber Hybrid Beer" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:6] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"Standard/Ordinary Bitter (8A)"];
@@ -133,11 +183,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"English Pale Ale" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:7] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"Scottish Light 60/- (9A)"];
@@ -149,11 +201,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"Scottish and Irish Ale" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:8] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"American Pale Ale (10A)"];
@@ -163,11 +217,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"American Ale" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:9] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"Mild (11A)"];
@@ -177,11 +233,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"English Brown Ale" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:10] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"Brown Porter (12A)"];
@@ -191,11 +249,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"Porter" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:11] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"Dry Stout (13A)"];
@@ -208,11 +268,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"Stout" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:12] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"English IPA (14A)"];
@@ -222,11 +284,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"India Pale Ale (IPA)" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:13] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"Weizen/Weissbier (15A)"];
@@ -237,11 +301,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"German Wheat and Rye Beer" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:14] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"Witbier (16A)"];
@@ -253,11 +319,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"Belgian and French Ale" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:15] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"Berliner Weisse (17A)"];
@@ -270,11 +338,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"Sour Ale" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:16] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"Belgian Blond Ale (18A)"];
@@ -286,11 +356,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"Belgian Strong Ale" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:17] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"Old Ale (19A)"];
@@ -300,11 +372,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"Strong Ale" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:18] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"Fruit Beer (20A)"];
@@ -312,11 +386,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"Fruit Beer" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:19] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"Spice, Herb, or Vegetable Beer (21A)"];
@@ -325,11 +401,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"Spice/Herb/Vegetable Beer" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:20] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"Classic Rauchbier (22A)"];
@@ -339,11 +417,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"Smoke-Flavored/Wood-Aged Beer" forKey:@"mainStyle"];
-            if (![context save:&error]) {
+            [style setValue:[NSNumber numberWithLong:21] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
+           if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"Specialty Beer (23A)"];
@@ -351,11 +431,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"Specialty Beer" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:22] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"Dry Mead (24A)"];
@@ -365,11 +447,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"Traditional Mead" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:23] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"Cyser (25A)"];
@@ -379,11 +463,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"Melomel (Fruit Mead)" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:24] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"Metheglin (26A)"];
@@ -393,11 +479,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"Other Mead" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:25] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"Common Cider (27A)"];
@@ -409,11 +497,13 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"Standard Cider and Perry" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
+            [style setValue:[NSNumber numberWithLong:26] forKey:@"categorie"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = [[NSMutableArray alloc]init];
         [stylesArr addObject:@"New England Cider (28A)"];
@@ -424,22 +514,18 @@
         for (NSString* object in stylesArr) {
             NSManagedObject* style = [NSEntityDescription insertNewObjectForEntityForName:@"Style" inManagedObjectContext:context];
             [style setValue:object forKey:@"name"];
-            [style setValue:@"Specialty Cider and Perry" forKey:@"mainStyle"];
+            [style setValue:[NSNumber numberWithLong:27] forKey:@"categorie"];
+            [style setValue:[NSNumber numberWithLong:index] forKey:@"index"];
             if (![context save:&error]) {
                 NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
             }
             cntr++;
+            index++;
         }
         stylesArr = nil;
-        //    NSManagedObject* beer = [NSEntityDescription insertNewObjectForEntityForName:@"Beer" inManagedObjectContext:context];
     }
-//    NSFetchRequest* fetchRequest = [[NSFetchRequest alloc]init];
-//    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Style" inManagedObjectContext:context];
-//    [fetchRequest setEntity:entity];
-//    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-//    for (NSManagedObject* info in fetchedObjects) {
-//        NSLog(@"Name: %@ - Style: %@", [info valueForKey:@"name"], [info valueForKey:@"mainStyle"]);
-//    }
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedOnce"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     return YES;
 }
 

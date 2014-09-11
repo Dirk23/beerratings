@@ -5,6 +5,20 @@
   Created by Dirk Hildebrand on 26.08.14.
   Copyright (c) 2014 Dirk Hildebrand. All rights reserved.
 */
-"Beer Ratings" = "Bierbewertung";
+"beerratings" = "Bierbewertungen";
+"Beer Ratings" = "Bierbewertungen";
 "New Beer" = "Neues Bier";
+"Done" = "Fertig";
+"Beer Details" = "Bier Details";
+"Beername" = "Biername";
+"Breweryname" = "Brauereiname";
+"IBU" = "Bittere";
+"ABV" = "Alkoholgehalt";
+"Style" = "Stil";
+"Look" = "Aussehen";
+"Smell" = "Geruch";
+"Taste" = "Geschmack";
+"Body" = "Vollmundigkeit";
+"Color" = "Farbe";
+"Notes" = "Notizen";
 "Done" = "Fertig";

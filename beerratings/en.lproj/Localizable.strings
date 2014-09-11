@@ -5,6 +5,20 @@
   Created by Dirk Hildebrand on 26.08.14.
   Copyright (c) 2014 Dirk Hildebrand. All rights reserved.
 */
+"beerratings" = "beerratings";
 "Beer Ratings" = "Beer Ratings";
 "New Beer" = "New Beer";
+"Done" = "Done";
+"Beer Details" = "Beer Details";
+"Beername" = "Beername";
+"Breweryname" = "Breweryname";
+"IBU" = "IBU";
+"ABV" = "ABV";
+"Style" = "Style";
+"Look" = "Look";
+"Smell" = "Smell";
+"Taste" = "Taste";
+"Body" = "Body";
+"Color" = "Color";
+"Notes" = "Notes";
 "Done" = "Done";

@@ -77,25 +77,27 @@ NSManagedObjectContext *context;
 {
     return [beersArr count];
 }
-
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 60;
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     HITMasterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellMaster" forIndexPath:indexPath];
     HITCalculations* calc = [[HITCalculations alloc]init];
     UIColor* bgColor = [calc getColorforEBC:[[[beersArr objectAtIndex:indexPath.row] valueForKey:@"ebc"]longValue]];
-    UIColor* inverseColor = [calc inverseColorWithUICollor:bgColor];
+//    UIColor* inverseColor = [calc inverseColorWithUICollor:bgColor];
     cell.beerName.text = [[beersArr objectAtIndex:indexPath.row] valueForKey:@"name"];
-    cell.beerName.textColor = inverseColor;
+//    cell.beerName.textColor = inverseColor;
     cell.breweryName.text = [[beersArr objectAtIndex:indexPath.row] valueForKey:@"brewery"];
-    cell.breweryName.textColor = inverseColor;
-    cell.backgroundColor = bgColor;
+//    cell.breweryName.textColor = inverseColor;
+    cell.beercolor.backgroundColor = bgColor;
      NSDate *date = [[beersArr objectAtIndex:indexPath.row] valueForKey:@"date"];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setTimeZone:[NSTimeZone localTimeZone]];
     [formatter setDateFormat:@"eee dd.MM.yyyy HH:mm:ss"];
     NSString *timeString = [formatter stringFromDate:date];
     cell.date.text = timeString;
-    cell.date.textColor = inverseColor;
+//    cell.date.textColor = inverseColor;
     [cell setTag:[[[beersArr objectAtIndex:indexPath.row] valueForKey:@"index"]longValue]];
     return cell;
 }
@@ -133,6 +135,7 @@ NSManagedObjectContext *context;
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
     return UITableViewCellEditingStyleDelete;
 }
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 //    [self performSegueWithIdentifier:@"pushToDetail" sender:self];
 }
@@ -197,6 +200,7 @@ NSManagedObjectContext *context;
     [beer setValue:[NSNumber numberWithLong:0] forKey:@"styleCategorieIndex"];
     [beer setValue:[NSNumber numberWithLong:0] forKey:@"styleIndex"];
     [beer setValue:[NSNumber numberWithDouble:2.5] forKey:@"taste"];
+    [beer setValue:[NSNumber numberWithLong:15] forKey:@"ebc"];
     NSError *error;
     if (![context save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);

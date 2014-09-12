@@ -12,4 +12,5 @@
 @property (strong, nonatomic) IBOutlet UILabel *beerName;
 @property (strong, nonatomic) IBOutlet UILabel *breweryName;
 @property (strong, nonatomic) IBOutlet UILabel *date;
+@property (strong, nonatomic) IBOutlet UIImageView *beercolor;
 @end

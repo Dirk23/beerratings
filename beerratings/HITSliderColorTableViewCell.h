@@ -12,4 +12,5 @@
 @property (strong, nonatomic) IBOutlet UITextField *sliderTextfield;
 @property (strong, nonatomic) IBOutlet UISlider *slider;
 @property (strong, nonatomic) IBOutlet UILabel *label;
+@property (strong, nonatomic) IBOutlet UIView *beercolor;
 @end

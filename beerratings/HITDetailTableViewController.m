@@ -18,10 +18,11 @@
 #import "igViewController.h"
 
 @interface HITDetailTableViewController () <UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
-@property (assign) BOOL showDatePicker;
+@property (assign) BOOL stylePickerIsShowing;
 @property (strong) NSString* styleCategorie;
 @property (strong) NSString* styleDetail;
-@property (assign) long cellHeigth;
+@property (assign) long numberOfSections;
+@property (strong, nonatomic) UIBarButtonItem* rightBarButton;
 @end
 
 @implementation HITDetailTableViewController
@@ -36,10 +37,11 @@
 @synthesize sliderEBC;
 @synthesize color;
 @synthesize selectedCategorie;
-@synthesize showDatePicker;
+@synthesize stylePickerIsShowing;
 @synthesize styleCategorie;
 @synthesize styleDetail;
-@synthesize cellHeigth;
+@synthesize numberOfSections;
+@synthesize rightBarButton;
 HITAppDelegate *appDelegateDetail;
 NSManagedObjectContext *contextDetail;
 
@@ -56,12 +58,12 @@ NSManagedObjectContext *contextDetail;
     sliderTaste = [[[beerDetailArr objectAtIndex:0] valueForKey:@"taste"]doubleValue];
     sliderBody = [[[beerDetailArr objectAtIndex:0] valueForKey:@"body"]doubleValue];
     sliderEBC = [[[beerDetailArr objectAtIndex:0] valueForKey:@"ebc"]doubleValue];
-    showDatePicker = YES;
-    cellHeigth = 0;
+    stylePickerIsShowing = NO;
     long categorie = [[[beerDetailArr objectAtIndex:0] valueForKey:@"styleCategorieIndex"]longValue];
     long style = [[[beerDetailArr objectAtIndex:0] valueForKey:@"rowStyleIndex"]longValue];
     styleCategorie = [[styleCategoriesArr objectAtIndex:categorie] valueForKey:@"name"];
     styleDetail = [[stylesArr objectAtIndex:style] valueForKey:@"name"];
+    numberOfSections = 11;
 }
 -(void)loadStyleCategories{
     NSFetchRequest* fetchRequest = [[NSFetchRequest alloc]init];
@@ -111,13 +113,20 @@ NSManagedObjectContext *contextDetail;
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
-    return 12;
+    return numberOfSections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 1;
+    if (section == 4) {
+        if (stylePickerIsShowing) {
+            return 2;
+        } else {
+            return 1;
+        }
+    } else {
+        return 1;
+    }
 }
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
@@ -137,24 +146,21 @@ NSManagedObjectContext *contextDetail;
             return NSLocalizedString(@"Style", nil);
             break;
         case 5:
-            return nil;
-            break;
-        case 6:
             return NSLocalizedString(@"Look", nil);
             break;
-        case 7:
+        case 6:
             return NSLocalizedString(@"Smell", nil);
             break;
-        case 8:
+        case 7:
             return NSLocalizedString(@"Taste", nil);
             break;
-        case 9:
+        case 8:
             return NSLocalizedString(@"Body", nil);
             break;
-        case 10:
+        case 9:
             return NSLocalizedString(@"Color", nil);
             break;
-        case 11:
+        case 10:
             return NSLocalizedString(@"Notes", nil);
             break;
         default:
@@ -165,15 +171,20 @@ NSManagedObjectContext *contextDetail;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 4 && indexPath.row == 0) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        if (showDatePicker) {
-            showDatePicker = NO;
-            cellHeigth = 132;
+        NSIndexPath * path1 = [NSIndexPath indexPathForRow:1 inSection:4];
+        NSArray *indexArray = [NSArray arrayWithObjects:path1,nil];
+        if (stylePickerIsShowing) {
+            stylePickerIsShowing = NO;
+            [self.tableView beginUpdates];
+            [self.tableView deleteRowsAtIndexPaths:indexArray withRowAnimation:UITableViewRowAnimationRight];
+            [self.tableView endUpdates];
         } else {
-            showDatePicker = YES;
-            cellHeigth = 0;
+            stylePickerIsShowing = YES;
+            [self.tableView beginUpdates];
+            [self.tableView insertRowsAtIndexPaths:indexArray withRowAnimation:UITableViewRowAnimationLeft];
+            [self.tableView endUpdates];
         }
     }
-    [self.tableView reloadData];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -183,6 +194,7 @@ NSManagedObjectContext *contextDetail;
     static NSString* sliderColor = @"cellSliderColor";
     static NSString* textView = @"cellTextView";
     static NSString* style = @"cellStyle";
+    
     if (indexPath.section == 0) {
         //Beername
         HITTextfieldTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:textfield forIndexPath:indexPath];
@@ -223,31 +235,41 @@ NSManagedObjectContext *contextDetail;
         return cell;
     }
     if (indexPath.section == 4) {
-        HITStyleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:style forIndexPath:indexPath];
-        cell.styleCategorie.text = styleCategorie;
-        cell.styleDetail.text = styleDetail;
-        return cell;
-    }
-    if (indexPath.section == 5) {
-        //Style
-        HITPickerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:picker forIndexPath:indexPath];
-        if (showDatePicker) {
-            cell.hidden = YES;
+        if (indexPath.row == 0) {
+            HITStyleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:style forIndexPath:indexPath];
+            cell.styleCategorie.text = styleCategorie;
+            cell.styleDetail.text = styleDetail;
+            return cell;
         } else {
-            cell.hidden = NO;
+            HITPickerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:picker forIndexPath:indexPath];
+            cell.picker.delegate = self;
+            cell.picker.dataSource = self;
+            [cell.picker setTag:indexPath.section];
+            long categorie = [[[beerDetailArr objectAtIndex:0] valueForKey:@"styleCategorieIndex"]longValue];
+            long style = [[[beerDetailArr objectAtIndex:0] valueForKey:@"rowStyleIndex"]longValue];
+            [cell.picker selectRow:categorie inComponent:0 animated:YES];
+            [cell.picker selectRow:style inComponent:1 animated:YES];
+            return cell;
         }
-        cell.picker.delegate = self;
-        cell.picker.dataSource = self;
-        [cell.picker setTag:indexPath.section];
-        long categorie = [[[beerDetailArr objectAtIndex:0] valueForKey:@"styleCategorieIndex"]longValue];
-        long style = [[[beerDetailArr objectAtIndex:0] valueForKey:@"rowStyleIndex"]longValue];
-        [cell.picker selectRow:categorie inComponent:0 animated:YES];
-        [cell.picker selectRow:style inComponent:1 animated:YES];
-//        styleCategorie = [[styleCategoriesArr objectAtIndex:categorie] valueForKey:@"name"];
-//        styleDetail = [[stylesArr objectAtIndex:style] valueForKey:@"name"];
-        return cell;
     }
-    if (indexPath.section == 6) {
+//    if (indexPath.section == 5) {
+//        //Style
+//        if (stylePickerIsShowing) {
+//             HITPickerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:picker forIndexPath:indexPath];
+//            cell.picker.delegate = self;
+//            cell.picker.dataSource = self;
+//            [cell.picker setTag:indexPath.section];
+//            long categorie = [[[beerDetailArr objectAtIndex:0] valueForKey:@"styleCategorieIndex"]longValue];
+//            long style = [[[beerDetailArr objectAtIndex:0] valueForKey:@"rowStyleIndex"]longValue];
+//            [cell.picker selectRow:categorie inComponent:0 animated:YES];
+//            [cell.picker selectRow:style inComponent:1 animated:YES];
+//            return cell;
+//        } else {
+//            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:textfield forIndexPath:indexPath];
+//            return cell;
+//        }
+//    }
+    if (indexPath.section == 5) {
         //Look
         HITSliderTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:slider forIndexPath:indexPath];
         cell.slider.minimumValue = 0;
@@ -259,7 +281,7 @@ NSManagedObjectContext *contextDetail;
         cell.slider.value = sliderLook;
         return cell;
     }
-    if (indexPath.section == 7) {
+    if (indexPath.section == 6) {
         //Smell
         HITSliderTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:slider forIndexPath:indexPath];
         cell.slider.minimumValue = 0;
@@ -272,7 +294,7 @@ NSManagedObjectContext *contextDetail;
 
         return cell;
     }
-    if (indexPath.section == 8) {
+    if (indexPath.section == 7) {
         //Taste
         HITSliderTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:slider forIndexPath:indexPath];
         cell.slider.minimumValue = 0;
@@ -284,7 +306,7 @@ NSManagedObjectContext *contextDetail;
         [cell.slider addTarget:self action:@selector(tasteChanged:) forControlEvents:UIControlEventValueChanged];
         return cell;
     }
-    if (indexPath.section == 9) {
+    if (indexPath.section == 8) {
         //Body
         HITSliderTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:slider forIndexPath:indexPath];
         cell.slider.minimumValue = 0;
@@ -296,27 +318,27 @@ NSManagedObjectContext *contextDetail;
         [cell.slider addTarget:self action:@selector(bodyChanged:) forControlEvents:UIControlEventValueChanged];
         return cell;
     }
-    if (indexPath.section == 10) {
+    if (indexPath.section == 9) {
         //Color
         HITSliderColorTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:sliderColor forIndexPath:indexPath];
         HITCalculations* calc = [[HITCalculations alloc]init];
         UIColor* bgColor = [calc getColorforEBC:sliderEBC];
-        UIColor* inverseColor = [calc inverseColorWithUICollor:bgColor];
+//        UIColor* inverseColor = [calc inverseColorWithUICollor:bgColor];
         cell.slider.minimumValue = 0;
         cell.slider.maximumValue = 100;
         cell.sliderTextfield.delegate = self;
         cell.sliderTextfield.text = [NSString stringWithFormat:@"%li", sliderEBC];
-        cell.sliderTextfield.textColor = inverseColor;
-        cell.label.textColor = inverseColor;
+//        cell.sliderTextfield.textColor = inverseColor;
+//        cell.label.textColor = inverseColor;
         cell.slider.value = sliderEBC;
-        cell.backgroundColor = [calc getColorforEBC:sliderEBC];
+        cell.beercolor.backgroundColor = bgColor;
         [cell.slider setTag:indexPath.section];
         [cell.slider addTarget:self action:@selector(ebcSliderSave:) forControlEvents:UIControlEventTouchUpInside];
         [cell.slider addTarget:self action:@selector(ebcSliderChanged:) forControlEvents:UIControlEventValueChanged];
         [cell.sliderTextfield addTarget:self action:@selector(ebcTextfield:) forControlEvents:UIControlEventEditingDidEnd];
         return cell;
     }
-    if (indexPath.section == 11) {
+    if (indexPath.section == 10) {
         //Look
         HITTextViewTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:textView forIndexPath:indexPath];
         cell.textView.delegate = self;
@@ -328,7 +350,6 @@ NSManagedObjectContext *contextDetail;
         [cell.textView setTag:indexPath.section];
         return cell;
     }
-
     else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:textfield forIndexPath:indexPath];
         return cell;
@@ -337,10 +358,23 @@ NSManagedObjectContext *contextDetail;
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
         case 4:
-            return 55;
-            break;
+            if (indexPath.row == 0) {
+                return 55;
+                break;
+            } else {
+                return 132;
+                break;
+            }
+//         case 5:
+//            if (stylePickerIsShowing) {
+//                return 132;
+//                break;
+//            } else {
+//                return 0;
+//                break;
+//            }
         case 5:
-            return cellHeigth;
+            return 66;
             break;
         case 6:
             return 66;
@@ -352,12 +386,9 @@ NSManagedObjectContext *contextDetail;
             return 66;
             break;
         case 9:
-            return 66;
-            break;
-        case 10:
             return 88;
             break;
-        case 11:
+        case 10:
             return 132;
             break;
         default:
@@ -442,7 +473,7 @@ NSManagedObjectContext *contextDetail;
     UILabel* tView = (UILabel*)view;
     if (!tView){
         tView = [[UILabel alloc] init];
-        tView.font = [UIFont systemFontOfSize:11.0];
+        tView.font = [UIFont systemFontOfSize:15.0];
         tView.textAlignment = NSTextAlignmentCenter;
         if (component == 0) {
             tView.text = [[styleCategoriesArr objectAtIndex:row] valueForKey:@"name"];
@@ -591,13 +622,14 @@ NSManagedObjectContext *contextDetail;
 }
 #pragma mark - Textview
 -(void)textViewDidBeginEditing:(UITextView *)textView {
+    rightBarButton = self.navigationItem.rightBarButtonItem;
     UIBarButtonItem* rightButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil) style:UIBarButtonItemStyleDone target:self action:@selector(textViewKeyboardDown:)];
     [self.navigationItem setRightBarButtonItem:rightButton];
 }
 -(void)textViewKeyboardDown:(id)sender {
-    UITextView* tView = (UITextView*)[self.view viewWithTag:11];
+    self.navigationItem.rightBarButtonItem = rightBarButton;
+    UITextView* tView = (UITextView*)[self.view viewWithTag:10];
     [tView endEditing:YES];
-    [self.navigationItem setRightBarButtonItem:nil];
 }
 -(void)textViewDidEndEditing:(UITextView *)textView {
     [self saveChangesWithValue:textView.text Key:@"note"];

@@ -12,6 +12,8 @@
 #import "HITBeer.h"
 #import "HITDetailTableViewController.h"
 #import "HITCalculations.h"
+
+
 @interface HITMasterTableViewController () <UIGestureRecognizerDelegate, UITableViewDelegate>
 
 @end
@@ -137,7 +139,6 @@ NSManagedObjectContext *context;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    [self performSegueWithIdentifier:@"pushToDetail" sender:self];
 }
 
 #pragma mark - LongPress handle
@@ -208,6 +209,10 @@ NSManagedObjectContext *context;
     [self getBeerList];
     UITableViewCell* cell = [[UITableViewCell alloc]init];
     [cell setTag:maxID];
-    [self performSegueWithIdentifier:@"pushToDetails" sender:cell];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        [self performSegueWithIdentifier:@"pushToDetails" sender:cell];
+    } else {
+ 
+    }
 }
 @end

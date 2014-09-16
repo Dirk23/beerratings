@@ -17,7 +17,7 @@
 #import "HITCalculations.h"
 #import "igViewController.h"
 
-@interface HITDetailTableViewController () <UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
+@interface HITDetailTableViewController () <UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource, igViewControllerDelegate>
 @property (assign) BOOL stylePickerIsShowing;
 @property (strong) NSString* styleCategorie;
 @property (strong) NSString* styleDetail;
@@ -521,7 +521,14 @@ NSManagedObjectContext *contextDetail;
 -(void)textFieldDidBeginEditing:(UITextField *)textField {
     [textField selectAll:self];
 }
-
+#pragma mark - Segue
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        if ([segue.identifier isEqualToString:@"modalToBarcode"]) {
+            ((igViewController*)segue.destinationViewController).delegate = self;
+        }
+    }
+}
 #pragma mark - Selectoren
 -(void)textFieldChanged:(id)sender{
     UITextField* txt = sender;
@@ -652,9 +659,12 @@ NSManagedObjectContext *contextDetail;
 #pragma mark - Barcode
 -(void)cameraDidFinish:(igViewController *)inController data:(NSString*)code {
     [self dismissViewControllerAnimated:YES completion:^{
-    
+        if (code) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Barcode" message:code delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [alert show];
+        }
     }];
 }
-
+#pragma mark - Delegate Methods
 
 @end

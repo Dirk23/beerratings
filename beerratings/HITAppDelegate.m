@@ -8,7 +8,8 @@
 
 #import "HITAppDelegate.h"
 #import <Crashlytics/Crashlytics.h>
-
+#import "HITDetailTableViewController.h"
+#import "HITMasterTableViewController.h"
 @implementation HITAppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
@@ -19,6 +20,9 @@
 {
     [Crashlytics startWithAPIKey:@"350f5b65ba22ff0376be9ab655dcefc7f64ed8ca"];
     NSManagedObjectContext* context = [self managedObjectContext];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+
+    }
     NSError* error;
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"]) {
         //writing StyleCategories into the Database

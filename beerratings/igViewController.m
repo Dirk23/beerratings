@@ -20,6 +20,8 @@
 
     UIView *_highlightView;
     UILabel *_label;
+    UIBarButtonItem *_barButton;
+    NSString *detectionString;
 }
 @end
 
@@ -28,26 +30,35 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    detectionString = nil;
+    [self.delegate cameraDidFinish:self data:nil];
     [self scan];
 }
-
+-(void)pressedCancle {
+    [self.delegate cameraDidFinish:self data:nil];
+}
 -(void)scan {
     _highlightView = [[UIView alloc] init];
     _highlightView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleBottomMargin;
     _highlightView.layer.borderColor = [UIColor greenColor].CGColor;
     _highlightView.layer.borderWidth = 3;
     [self.view addSubview:_highlightView];
-    
+    _barButton = [[UIBarButtonItem alloc] init];
+    _barButton.style = UIBarButtonItemStyleDone;
+    [self.navigationController.navigationItem setRightBarButtonItem:_barButton];
     _label = [[UILabel alloc] init];
+    _label.userInteractionEnabled = YES;
+    UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(pressedCancle)];
+    [_label addGestureRecognizer:tap];
     _label.frame = CGRectMake(0, self.view.bounds.size.height - 40, self.view.bounds.size.width, 40);
     _label.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     _label.backgroundColor = [UIColor colorWithWhite:0.15 alpha:0.65];
     _label.textColor = [UIColor whiteColor];
+    _label.text = @"Cancel";
     _label.textAlignment = NSTextAlignmentCenter;
-    _label.text = @"(none)";
     [self.view addSubview:_label];
     
-    _session = [[AVCaptureSession alloc] init];
+     _session = [[AVCaptureSession alloc] init];
     _device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     NSError *error = nil;
     
@@ -68,19 +79,17 @@
     _prevLayer.frame = self.view.bounds;
     _prevLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     [self.view.layer addSublayer:_prevLayer];
-    
+   
     [_session startRunning];
-    
     [self.view bringSubviewToFront:_highlightView];
     [self.view bringSubviewToFront:_label];
-
 }
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
 {
     CGRect highlightViewRect = CGRectZero;
     AVMetadataMachineReadableCodeObject *barCodeObject;
-    NSString *detectionString = nil;
+    
     NSArray *barCodeTypes = @[AVMetadataObjectTypeUPCECode, AVMetadataObjectTypeCode39Code, AVMetadataObjectTypeCode39Mod43Code,
             AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeEAN8Code, AVMetadataObjectTypeCode93Code, AVMetadataObjectTypeCode128Code,
             AVMetadataObjectTypePDF417Code, AVMetadataObjectTypeQRCode, AVMetadataObjectTypeAztecCode];
@@ -98,16 +107,10 @@
 
         if (detectionString != nil)
         {
-            _label.text = detectionString;
+            [self.delegate cameraDidFinish:self data:detectionString];
             break;
         }
-        else
-            _label.text = @"(none)";
     }
     _highlightView.frame = highlightViewRect;
-    if (![_label.text isEqualToString:@"(none)"]) {
-        [self.delegate cameraDidFinish:self data:detectionString];
-    }
-}
-
+ }
 @end

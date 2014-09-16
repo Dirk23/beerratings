@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "igViewController.h"
+#import "HITMasterTableViewController.h"
 
-@interface HITDetailTableViewController : UITableViewController <igViewControllerDelegate>
+@protocol DetailViewControllerDelegate;
+
+@interface HITDetailTableViewController : UITableViewController 
 @property (strong, nonatomic) NSArray* stylesArr;
 @property (strong, nonatomic) NSArray* styleCategoriesArr;
 @property (strong, nonatomic) NSArray* beerDetailArr;

@@ -9,6 +9,7 @@
 #import "HITCalculations.h"
 
 @implementation HITCalculations
+
 #pragma mark - Slider 0.5 Steps
 -(float)roundValue:(float)floatValue step:(double)step {
     return roundf(floatValue * 2.0) * step;

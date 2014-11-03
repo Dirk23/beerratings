@@ -15,9 +15,8 @@
 #import "HITStyleTableViewCell.h"
 #import "HITAppDelegate.h"
 #import "HITCalculations.h"
-#import "igViewController.h"
 
-@interface HITDetailTableViewController () <UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource, igViewControllerDelegate>
+@interface HITDetailTableViewController () <UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 @property (assign) BOOL stylePickerIsShowing;
 @property (strong) NSString* styleCategorie;
 @property (strong) NSString* styleDetail;
@@ -524,9 +523,7 @@ NSManagedObjectContext *contextDetail;
 #pragma mark - Segue
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        if ([segue.identifier isEqualToString:@"modalToBarcode"]) {
-            ((igViewController*)segue.destinationViewController).delegate = self;
-        }
+    
     }
 }
 #pragma mark - Selectoren

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="rS3-R9-Ivy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6249" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="rS3-R9-Ivy">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6243"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -312,39 +313,15 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="oKW-oM-4zb">
-                        <barButtonItem key="rightBarButtonItem" image="barcode" id="EL7-pP-afc">
-                            <connections>
-                                <segue destination="Jpl-tz-7TO" kind="modal" identifier="modalToBarcode" id="94s-fY-igD"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" id="EL7-pP-afc"/>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RRs-kB-mKJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="857" y="50"/>
-        </scene>
-        <!--Ig View Controller-->
-        <scene sceneID="s4e-SW-1uy">
-            <objects>
-                <viewController id="Jpl-tz-7TO" customClass="igViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Ern-z1-BKv"/>
-                        <viewControllerLayoutGuide type="bottom" id="nc1-4J-SXO"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="0Zl-xr-35j">
-                        <rect key="frame" x="0.0" y="64" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="5sx-ZO-EYO"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="oy1-ZV-gs2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1267" y="50"/>
+            <point key="canvasLocation" x="946" y="55"/>
         </scene>
     </scenes>
     <resources>
-        <image name="barcode" width="22" height="22"/>
         <image name="beerglas" width="33" height="33"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
